@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Java Online IDE + AI</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Markdown Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
     <style>
@@ -83,20 +80,14 @@
                 </button>
             </div>
 
-            <!-- Settings is now optional since keys are hardcoded -->
-            <button onclick="openSettings()" class="bg-[#3c3c3c] hover:bg-[#4c4c4c] text-white px-3 py-1 rounded text-sm transition">
-                <i class="fa-solid fa-gear"></i> Keys
-            </button>
             <button id="runBtn" onclick="runCode()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded text-sm font-semibold transition flex items-center gap-2">
                 <i class="fa-solid fa-play"></i> Run
             </button>
         </div>
     </nav>
 
-    <!-- Main Layout -->
     <div class="flex flex-1 overflow-hidden">
         
-        <!-- Editor (Left) -->
         <div class="w-1/2 flex flex-col border-r border-[#3e3e3e] relative">
             <div class="bg-[#252526] px-4 py-1 text-xs text-gray-400 flex justify-between items-center border-b border-[#3e3e3e]">
                 <span class="font-bold">Main.java</span>
@@ -104,10 +95,8 @@
             <div id="container" class="flex-1 w-full"></div>
         </div>
 
-        <!-- Right Panel (Output + AI) -->
         <div class="w-1/2 flex flex-col bg-[#1e1e1e]">
             
-            <!-- Tab Header -->
             <div class="flex border-b border-[#3e3e3e] bg-[#252526]">
                 <button onclick="switchTab('console')" id="tab-console" class="px-4 py-1 text-xs font-bold text-white border-b-2 border-blue-500 bg-[#1e1e1e]">
                     <i class="fa-solid fa-terminal mr-1"></i> Console
@@ -117,19 +106,16 @@
                 </button>
             </div>
 
-            <!-- Console Content -->
             <div id="view-console" class="flex flex-col flex-1 overflow-hidden">
                 <div id="output" class="output-area flex-1 p-4 overflow-y-auto text-gray-300">
                     <div class="text-gray-500 italic">Click "Run" to execute code...</div>
                 </div>
-                <!-- Stdin -->
                 <div class="h-1/4 border-t border-[#3e3e3e] flex flex-col">
                     <div class="bg-[#252526] px-4 py-1 text-xs text-gray-400 font-bold">Standard Input (Stdin)</div>
                     <textarea id="stdin" class="flex-1 bg-[#1e1e1e] text-gray-300 p-2 resize-none focus:outline-none font-mono text-sm border-none" placeholder="Input data..."></textarea>
                 </div>
             </div>
 
-            <!-- AI Content -->
             <div id="view-ai" class="hidden flex-col flex-1 overflow-hidden bg-[#1e1e1e] p-4">
                 <div id="ai-output" class="markdown-body flex-1 overflow-y-auto">
                     <div class="text-gray-500 italic mt-10 text-center">
@@ -141,39 +127,12 @@
         </div>
     </div>
 
-    <!-- Settings Modal -->
-    <div id="settingsModal" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50 backdrop-blur-sm">
-        <div class="bg-[#2d2d2d] p-6 rounded-lg w-96 shadow-2xl border border-[#3e3e3e]">
-            <h2 class="text-xl font-bold mb-4 text-white flex items-center gap-2">
-                <i class="fa-solid fa-sliders"></i> Configuration
-            </h2>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-blue-400 uppercase mb-1">Judge0 API Key (RapidAPI)</label>
-                    <input type="password" id="rapidApiKey" class="w-full bg-[#1e1e1e] border border-[#3e3e3e] text-white p-2 rounded text-sm focus:border-blue-500 focus:outline-none placeholder-gray-600">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-purple-400 uppercase mb-1">Gemini API Key (Google)</label>
-                    <input type="password" id="geminiApiKey" class="w-full bg-[#1e1e1e] border border-[#3e3e3e] text-white p-2 rounded text-sm focus:border-purple-500 focus:outline-none placeholder-gray-600">
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end gap-2">
-                <button onclick="closeSettings()" class="text-gray-400 hover:text-white px-3 py-1 text-sm">Cancel</button>
-                <button onclick="saveSettings()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium">Save</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/loader.min.js"></script>
     <script>
-        // ************************************************************************
-        // 1. SETUP: PASTE YOUR KEYS INSIDE THE QUOTES BELOW
-        // ************************************************************************
-        const HARDCODED_JUDGE0_KEY = "f207c19e22msh86880f9c9e46388p15043ajsncd3ae3be9685"; // Example: "abc12345..."
-        const HARDCODED_GEMINI_KEY = "JavacR"; // Example: "AIzaSyD..."
-        // ************************************************************************
-
+        
+        const HARDCODED_JUDGE0_KEY = "f207c19e22msh86880f9c9e46388p15043ajsncd3ae3be9685"; 
+        const HARDCODED_GEMINI_KEY = "JavacR"; 
+        
         let editor;
         let lastAiCode = "";
 
@@ -201,8 +160,8 @@
 
         function getKeys() {
             return {
-                judge0: HARDCODED_JUDGE0_KEY || localStorage.getItem('rapid_api_key'),
-                gemini: HARDCODED_GEMINI_KEY || localStorage.getItem('gemini_api_key')
+                judge0: HARDCODED_JUDGE0_KEY,
+                gemini: HARDCODED_GEMINI_KEY
             };
         }
 
@@ -237,8 +196,8 @@
             const { judge0 } = getKeys();
             
             if (!judge0) {
-                out.innerHTML = '<span class="text-yellow-500">Missing API Key. Please edit the file and paste your Judge0 Key.</span>';
-                return openSettings();
+                out.innerHTML = '<span class="text-yellow-500">Missing API Key. Please edit the file and paste your Judge0 Key into the code.</span>';
+                return; 
             }
 
             btn.disabled = true;
@@ -297,13 +256,15 @@
 
         async function askAI(mode) {
             const { gemini } = getKeys();
-            if (!gemini) {
-                alert("Missing Gemini Key. Please edit the file.");
-                return openSettings();
-            }
 
             switchTab('ai');
             const aiDiv = document.getElementById('ai-output');
+            
+            if (!gemini) {
+                aiDiv.innerHTML = '<div class="text-red-400 mt-10 text-center">Missing Gemini API Key. Please edit the file and paste your key into the code.</div>';
+                return;
+            }
+
             aiDiv.innerHTML = '<div class="text-center mt-10"><div class="loader"></div><br><span class="text-gray-400 text-sm">Gemini is thinking...</span></div>';
 
             const code = editor.getValue();
@@ -324,7 +285,7 @@
                 
                 const responseText = data.candidates[0].content.parts[0].text;
                 
-                // Extract code block for "Apply" button
+                // Extract code block 
                 const match = responseText.match(/```java\s*([\s\S]*?)\s*```/);
                 if (match && mode === 'fix') {
                     lastAiCode = match[1];
@@ -343,23 +304,10 @@
             if (lastAiCode) {
                 editor.setValue(lastAiCode);
                 switchTab('console');
-                alert("Code updated!");
+                
+                const out = document.getElementById('output');
+                out.innerHTML = '<span class="text-green-400">Code updated! Run the code to test the fix.</span>';
             }
-        }
-
-        function openSettings() {
-            document.getElementById('settingsModal').classList.remove('hidden');
-            const { judge0, gemini } = getKeys();
-            if(judge0 && judge0 !== HARDCODED_JUDGE0_KEY) document.getElementById('rapidApiKey').value = judge0;
-            if(gemini && gemini !== HARDCODED_GEMINI_KEY) document.getElementById('geminiApiKey').value = gemini;
-        }
-        function closeSettings() {
-            document.getElementById('settingsModal').classList.add('hidden');
-        }
-        function saveSettings() {
-            localStorage.setItem('rapid_api_key', document.getElementById('rapidApiKey').value.trim());
-            localStorage.setItem('gemini_api_key', document.getElementById('geminiApiKey').value.trim());
-            closeSettings();
         }
     </script>
 </body>
